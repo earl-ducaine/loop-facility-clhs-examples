@@ -58,7 +58,8 @@
    unless (eq item 'B) sum x)
 ;; =>  4
 
-;;; 6.1.2.1.3.1 Examples of for-as-on-list subclause
+
+;;;; 6.1.2.1.3.1 Examples of for-as-on-list subclause
 
 ;; Collect successive tails of a list.
 (loop for sublist on '(a b c d)
@@ -73,7 +74,8 @@
 ;; >>  3
 ;; =>  NIL
 
-;; 6.1.2.1.4.1 Examples of for-as-equals-then subclause
+
+;;;; 6.1.2.1.4.1 Examples of for-as-equals-then subclause
 
 ;; Collect some numbers.
 (loop for item = 1 then (+ item 10)
@@ -82,13 +84,15 @@
 ;; =>  (1 11 21 31 41)
 
 
-;;; 6.1.2.1.5.1 Examples of for-as-across subclause
+;;;; 6.1.2.1.5.1 Examples of for-as-across subclause
 
 (loop for char across (the simple-string (find-message channel))
    do (write-char char stream))
 
+
 ;;; 6.1.2.1.6 The for-as-hash subclause
 ;; <TODO>
+
 
 ;;;6.1.2.1.7 The for-as-package subclause
 ;; <TODO>
@@ -126,7 +130,7 @@
 		  (go next-loop)
 		  end-loop))))
 
-;;; 6.1.2.2.1 Examples of WITH clause
+;;;; 6.1.2.2.1 Examples of WITH clause
 
 ;; These bindings occur in sequence.
 (loop with a = 1
@@ -272,23 +276,23 @@
 
 ;;;; 6.1.4.3 Examples of WHILE and UNTIL clauses
 
- (loop while (hungry-p) do (eat))
+(loop while (hungry-p) do (eat))
 
 ;; UNTIL NOT is equivalent to WHILE.
- (loop until (not (hungry-p)) do (eat))
+(loop until (not (hungry-p)) do (eat))
 
 ;; Collect the length and the items of STACK.
- (let ((stack '(a b c d e f)))
-   (loop for item = (length stack) then (pop stack)
-         collect item
-         while stack))
+(let ((stack '(a b c d e f)))
+  (loop for item = (length stack) then (pop stack)
+     collect item
+     while stack))
 ;; =>  (6 A B C D E F)
 
 ;; Use WHILE to terminate a loop that otherwise wouldn't terminate.
 ;; Note that WHILE occurs after the WHEN.
- (loop for i fixnum from 3
-       when (oddp i) collect i
-       while (< i 5))
+(loop for i fixnum from 3
+   when (oddp i) collect i
+   while (< i 5))
 ;; =>  (3 5)
 
 
@@ -296,9 +300,9 @@
 
 ;; Print numbers and their squares.
 ;; The DO construct applies to multiple forms.
- (loop for i from 1 to 3
-       do (print i)
-          (print (* i i)))
+(loop for i from 1 to 3
+   do (print i)
+     (print (* i i)))
 ;; >>  1
 ;; >>  1
 ;; >>  2
@@ -307,57 +311,56 @@
 ;; >>  9
 ;; =>  NIL
 
-;;; 6.1.6.1 Examples of WHEN clause
+;;; 6.1.6.1 Examples of when clause
 
 ;; Signal an exceptional condition.
- (loop for item in '(1 2 3 a 4 5)
-       when (not (numberp item))
-        return (cerror "enter new value" "non-numeric value: ~s" item))
+(loop for item in '(1 2 3 a 4 5)
+   when (not (numberp item))
+   return (cerror "enter new value" "non-numeric value: ~s" item))
 ;; Error: non-numeric value: A
 
 ;; The previous example is equivalent to the following one.
- (loop for item in '(1 2 3 a 4 5)
-       when (not (numberp item))
-        do (return
-            (cerror "Enter new value" "non-numeric value: ~s" item)))
+(loop for item in '(1 2 3 a 4 5)
+   when (not (numberp item))
+   do (return
+	(cerror "Enter new value" "non-numeric value: ~s" item)))
 ;; Error: non-numeric value: A
 
 ;; This example parses a simple printed string representation from
-;; BUFFER (which is itself a string) and returns the index of the
+;; buffer (which is itself a string) and returns the index of the
 ;; closing double-quote character.
- (let ((buffer "\"a\" \"b\""))
-   (loop initially (unless (char= (char buffer 0) #\")
-                     (loop-finish))
-         for i of-type fixnum from 1 below (length (the string buffer))
-         when (char= (char buffer i) #\")
-          return i))
+(let ((buffer "\"a\" \"b\""))
+  (loop initially (unless (char= (char buffer 0) #\")
+		    (loop-finish))
+     for i of-type fixnum from 1 below (length (the string buffer))
+     when (char= (char buffer i) #\")
+     return i))
 ;; =>  2
 
 ;; The collected value is returned.
- (loop for i from 1 to 10
-       when (> i 5)
-         collect i
-       finally (prin1 'got-here))
+(loop for i from 1 to 10
+   when (> i 5)
+   collect i
+   finally (prin1 'got-here))
 ;; >>  GOT-HERE
 ;; =>  (6 7 8 9 10)
 
 ;; Return both the count of collected numbers and the numbers.
- (loop for i from 1 to 10
-       when (> i 5)
-         collect i into number-list
-         and count i into number-count
-       finally (return (values number-count number-list)))
+(loop for i from 1 to 10
+   when (> i 5)
+   collect i into number-list
+   and count i into number-count
+   finally (return (values number-count number-list)))
 ;; =>  5, (6 7 8 9 10)
 
 ;;;; 6.1.7.1 Control Transfer Clauses
-
-;;; 6.1.7.1.1 Examples of NAMED clause
+;;; 6.1.7.1.1 Examples of named clause
 
 ;; Just name and return.
- (loop named max
-       for i from 1 to 10
-       do (print i)
-       do (return-from max 'done))
+(loop named max
+   for i from 1 to 10
+   do (print i)
+   do (return-from max 'done))
 ;; >>  1
 ;; =>  DONE
 
@@ -366,38 +369,37 @@
 
 ;;;; 6.1.8 Examples of Miscellaneous Loop Features
 
-
- (let ((i 0))                     ; no loop keywords are used
-    (loop (incf i) (if (= i 3) (return i)))) =>  3
- (let ((i 0)(j 0))
-    (tagbody
-      (loop (incf j 3) (incf i) (if (= i 3) (go exit)))
-      exit)
-    j)
+(let ((i 0))                     ; no loop keywords are used
+  (loop (incf i) (if (= i 3) (return i)))) =>  3
+(let ((i 0)(j 0))
+  (tagbody
+     (loop (incf j 3) (incf i) (if (= i 3) (go exit)))
+   exit)
+  j)
 ;; =>  9
 
- (loop for x from 1 to 10
-       for y = nil then x
-       collect (list x y))
+(loop for x from 1 to 10
+   for y = nil then x
+   collect (list x y))
 ;; =>  ((1 NIL) (2 2) (3 3) (4 4) (5 5) (6 6) (7 7) (8 8) (9 9) (10 10))
 
- (loop for x from 1 to 10
-       and y = nil then x
-       collect (list x y))
+(loop for x from 1 to 10
+   and y = nil then x
+   collect (list x y))
 ;; =>  ((1 NIL) (2 1) (3 2) (4 3) (5 4) (6 5) (7 6) (8 7) (9 8) (10 9))
 
 ;;;; 6.1.8.1 Examples of clause grouping
 
 ;; Group conditional clauses.
- (loop for i in '(1 324 2345 323 2 4 235 252)
-       when (oddp i)
-         do (print i)
-         and collect i into odd-numbers
-         and do (terpri)
-       else                              ; I is even.
-         collect i into even-numbers
-       finally
-         (return (values odd-numbers even-numbers)))
+(loop for i in '(1 324 2345 323 2 4 235 252)
+   when (oddp i)
+   do (print i)
+   and collect i into odd-numbers
+   and do (terpri)
+   else                              ; I is even.
+   collect i into even-numbers
+   finally
+     (return (values odd-numbers even-numbers)))
 ;; >>  1
 ;; >>
 ;; >>  2345
@@ -408,49 +410,50 @@
 ;; =>  (1 2345 323 235), (324 2 4 252)
 
 ;; Collect numbers larger than 3.
- (loop for i in '(1 2 3 4 5 6)
-       when (and (> i 3) i)
-       collect it)                      ; IT refers to (and (> i 3) i).
+(loop for i in '(1 2 3 4 5 6)
+   when (and (> i 3) i)
+   ;; it refers to (and (> i 3) i).
+   collect it)
 ;; =>  (4 5 6)
 
 ;; Find a number in a list.
- (loop for i in '(1 2 3 4 5 6)
-       when (and (> i 3) i)
-       return it)
+(loop for i in '(1 2 3 4 5 6)
+   when (and (> i 3) i)
+   return it)
 ;; =>  4
 
 ;; The above example is similar to the following one.
- (loop for i in '(1 2 3 4 5 6)
-       thereis (and (> i 3) i))
+(loop for i in '(1 2 3 4 5 6)
+   thereis (and (> i 3) i))
 ;; =>  4
 
 
 ;; Nest conditional clauses.
- (let ((list '(0 3.0 apple 4 5 9.8 orange banana)))
-   (loop for i in list
-         when (numberp i)
-           when (floatp i)
-             collect i into float-numbers
-           else                                  ; Not (floatp i)
-             collect i into other-numbers
-         else                                    ; Not (numberp i)
-           when (symbolp i)
-             collect i into symbol-list
-           else                                  ; Not (symbolp i)
-             do (error "found a funny value in list ~S, value ~S~%" list i)
-         finally (return (values float-numbers other-numbers symbol-list))))
+(let ((list '(0 3.0 apple 4 5 9.8 orange banana)))
+  (loop for i in list
+     when (numberp i)
+     when (floatp i)
+     collect i into float-numbers
+     else                                  ; Not (floatp i)
+     collect i into other-numbers
+     else                                    ; Not (numberp i)
+     when (symbolp i)
+     collect i into symbol-list
+     else                                  ; Not (symbolp i)
+     do (error "found a funny value in list ~S, value ~S~%" list i)
+     finally (return (values float-numbers other-numbers symbol-list))))
 ;; =>  (3.0 9.8), (0 4 5), (APPLE ORANGE BANANA)
 
-;; Without the END preposition, the last AND would apply to the
-;; inner IF rather than the outer one.
- (loop for x from 0 to 3
-       do (print x)
-       if (zerop (mod x 2))
-         do (princ " a")
-          and if (zerop (floor x 2))
-                do (princ " b")
-                end
-          and do (princ " c"))
+;; Without the end preposition, the last 'and' would apply to the
+;; inner if rather than the outer one.
+(loop for x from 0 to 3
+   do (print x)
+   if (zerop (mod x 2))
+   do (princ " a")
+   and if (zerop (floor x 2))
+   do (princ " b")
+   end
+   and do (princ " c"))
 ;; >>  0  a b c
 ;; >>  1
 ;; >>  2  a c
