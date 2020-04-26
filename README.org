@@ -1,0 +1,22 @@
+
+* Loop Facility, CLHS Examples
+
+  Users of CL, needing a powerful, programable iteration fascility
+  should consider iterate, which has a more conventional syntax than
+  loop, and is considerably more powerful, especialy with respect to
+  creating iteration drivers. I've included a separate file that
+  transcribes all the loop examples in coresponding iterate
+  examples. Perhaps as a TODO I will also collect the examples from
+  the Iterate Manual. Though, because of it's layout that would be
+  generally less useful than the CLHS extraction i've performed.
+
+  There are few examples of using loop under the [[http://www.lispworks.com/documentation/HyperSpec/Body/m_loop.htm][CLHS loop entry]]. 
+  Instead those examples are spread across a special section devoted
+  to loop, [[http://www.lispworks.com/documentation/HyperSpec/Body/06_a.htm][The Loop Facility]]. Because of loop's complexity this makes
+  some sense. But it's inconvenient for those trying to hunt down the
+  use of various clauses. This is made doubly incovenient by the fact that
+  loop's syntax is ideosyncratic and therefore it's difficult to
+  understand the use of various clauses by just reading the spec.
+
+  In this repo I've collected all of the examples of using the loop
+  form, taken from the Common Lisp Hyper-Spec. 
