@@ -1,5 +1,5 @@
 
-* Loop Facility, CLHS Examples
+* CLHS Loop Examples and Their Iterate Transcription
 
   Users of CL, needing a powerful, programable iteration fascility
   should consider iterate, which has a more conventional syntax than
