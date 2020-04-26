@@ -4,10 +4,16 @@
 
 ;;;; 6.1.2.1.1 The for-as-arithmetic subclause
 
-(let ((x 1)) (loop for i from x by (incf x) to 10 collect i))
+(let ((x 1))
+  (loop for i from x by (incf x) to 10
+     collect i))
 ;; =>  (1 3 5 7 9)
-(let ((x 1)) (loop for i by (incf x) from x to 10 collect i))
+
+(let ((x 1))
+  (loop for i by (incf x) from x to 10
+     collect i))
 ;; =>  (2 4 6 8 10)
+
 
 ;;; 6.1.2.1.1.1 Examples of for-as-arithmetic subclause
 
@@ -86,8 +92,11 @@
 
 ;;;; 6.1.2.1.5.1 Examples of for-as-across subclause
 
-(loop for char across (the simple-string (find-message channel))
-   do (write-char char stream))
+(loop for char across  "abcdefghijkl"
+   do (write-char char t))
+;; => abcdefghijkl
+;; NIL
+
 
 
 ;;; 6.1.2.1.6 The for-as-hash subclause
