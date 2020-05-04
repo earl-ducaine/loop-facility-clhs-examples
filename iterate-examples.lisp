@@ -138,7 +138,7 @@
 (iterate (for s in-package :cl-user)
 	 (count s))
 ;; => 1408
-;; Of course the actual number computer will vary based on the
+;; Of course the actual number computed will vary based on the
 ;; symbols you've imported into your cl-user package.
 
 
@@ -172,6 +172,7 @@
    and c = (+ b 3)
    return (list a b c))
 ;; =>  (1 7 13)
+;; See above comment (6.1.2.2) re: with clause.
 
 ;; This example shows a way to declare local variables that are of
 ;; different types.
