@@ -256,11 +256,11 @@
 
 ;;; 6.1.4.2 Examples of ALWAYS, NEVER, and THEREIS clauses
 
-;; Make sure i is always less than 11 (two ways).
-;; the for construct terminates these loops.
+;; Make sure i is always less than 11 (two ways). Note, the for
+;; construct terminates both these these loops.
 (iterate (for i from 0 to 10)
    (always (< i 11)))
-;; =>  N
+;; =>  T
 
 (iterate (for i from 0 to 20)
 	 (always (< i 11)))
