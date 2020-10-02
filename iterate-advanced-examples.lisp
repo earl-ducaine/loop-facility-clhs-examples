@@ -3,6 +3,57 @@
 ;; examples for constructs without exemplars and has several advanced
 ;; examples of drivers and generators.
 
+;; Getting started -- load iterate from Quicklisp and import all
+;; exported symbols into your current package. iterate-keywords
+;; (separate from Common Lisp keywords) are symbols rather than
+;; designators of some kind and therefor must be refered to by their
+;; package name if they aren't imported, something that quickly
+;; becomes tedious, e.g.
+;;
+;; (itererate::iter (itererate::for i itererate::from 1 itererate::to 10)
+;;                  (itererate::collect i))
+;;
+;; For more information on installing quicklisp see the main website:
+;;
+;; https://www.quicklisp.org/
+
+(ql:quickload :iterate)
+(use-package :iterate)
+
+;; 1
+;;
+;; simple example
+(iter (for i from 1 to 10)
+      (collect i))
+;; >> (1 2 3 4 5 6 7 8 9 10)
+
+;; collect odd numbers in a list
+(let ((list '(1 2 3 4 5 6 7 8 9 10)))
+  (iter (for el in list)
+	(if (and (numberp el) (oddp el))
+	    (collect el))))
+;; >> (1 3 5 7 9)
+
+;; Example of iterating over alist, of creation a new variable
+;; bindings, stepping over multiple sequences at once, using compiler
+;; declarations of variable types, and collecting values
+(let ((alist '((a 1) (b 2) (c 3) (d 4))))
+  (iter (for (key . item) in alist)
+	(for i from 0)
+	(declare (fixnum i))
+	(collect (cons i key))))
+;; >> ((0 . A) (1 . B) (2 . C) (3 . D))
+
+;; 2.1 Drivers
+;;
+;; Example of repeat, the only iteration driver clause that doesn't
+;; begin with for.
+(iter (repeat 3)
+      (print "I will not talk in class."))
+;; >> "I will not talk in class."
+;; >> "I will not talk in class."
+;; >> "I will not talk in class."
+
 
 ;; 2.1.2 Sequence iteration
 ;;
